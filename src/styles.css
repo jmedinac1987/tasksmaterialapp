@@ -1,4 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
-
-html, body { height: 100%; }
-body { margin: 0; font-family: 'Roboto', sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+}
+.color {
+  background-color: grey;
+}
+.pt-5-app{
+  padding-top: 3rem!important;
+}
