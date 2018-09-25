@@ -7,6 +7,9 @@
   </mat-card-header>
   <form action="" method="post">
     <mat-card-content>
+      <div class="alert-danger">
+        <p>Passwords do not match</p>
+      </div>
       <div class="material-container">
         <mat-form-field>
           <input type="text" matInput placeholder="Full name" minlength="3" maxlength="30" required>
@@ -24,7 +27,7 @@
     </mat-card-content>
     <mat-card-actions>
       <button type="submit" mat-raised-button color="primary">Sign up</button>
-      <a mat-button [routerLink]="['/signin']" color="primary">I prefer to log in</a>      
+      <a mat-button [routerLink]="['/home/signin']" color="primary">I prefer to log in</a>
     </mat-card-actions>
   </form>
 </mat-card>

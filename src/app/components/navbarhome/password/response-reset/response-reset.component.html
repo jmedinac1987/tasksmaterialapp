@@ -1,0 +1,28 @@
+<mat-card class="material-card">
+  <mat-card-header>
+    <mat-card-title>
+      <h2>Change of password</h2>
+    </mat-card-title>    
+  </mat-card-header>
+  <form action="" method="post">
+    <mat-card-content>
+      <div class="alert-danger">
+          <p>Passwords do not match</p>             
+      </div>
+      <div class="material-container">        
+        <mat-form-field>
+          <input type="email" matInput placeholder="Email" required>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="password" matInput placeholder="New password" required minlength="8">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="password" matInput placeholder="Confirm new password" required minlength="8">
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button type="submit" mat-raised-button color="primary">Change</button>      
+    </mat-card-actions>
+  </form>
+</mat-card>

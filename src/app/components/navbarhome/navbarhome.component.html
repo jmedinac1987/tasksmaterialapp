@@ -2,9 +2,11 @@
   <mat-sidenav-content>
     <mat-toolbar color="primary">
       <span>AppTasks</span>
+      <span class="spacer"></span>
+      <a [routerLink]="['/home/signin']">Sign in</a>
     </mat-toolbar>
     <!-- Add Content Here -->
-    <div class="container-app pt-5-app">
+    <div class="container-app pt-5-app pb-5-app">
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>

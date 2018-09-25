@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SigninComponent } from './components/signin/signin.component';
-import { SignupComponent } from './components/signup/signup.component';
-import { RequestResetComponent } from './components/password/request-reset/request-reset.component';
+import { NavbarhomeComponent } from './components/navbarhome/navbarhome.component';
+import { NavbarprofileComponent } from './components/navbarprofile/navbarprofile.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { homeRoutes } from './components/navbarhome/home.routing';
+import { profileRoutes } from './components/navbarprofile/profile.routing';
 
 const routes: Routes = [
-  { path:'', redirectTo: '/signin', pathMatch:'full' },
-  { path:'signin', component: SigninComponent },
-  { path:'signup', component: SignupComponent },
-  { path:'request-reset', component: RequestResetComponent },
+  { path:'', redirectTo: '/home', pathMatch:'full' },
+  { path:'home', component: NavbarhomeComponent, children: homeRoutes },  
+  { path:'profile', component: NavbarprofileComponent, children: profileRoutes },  
   { path:'**', component: NotFoundComponent }
 ];
 

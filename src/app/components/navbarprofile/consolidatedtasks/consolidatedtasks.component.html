@@ -1,0 +1,32 @@
+<pagination-controls (pageChange)="currentPage = $event">
+</pagination-controls>
+<div class="table-responsive">
+  <table class="mat-elevation-z8">
+    <thead>
+      <tr>
+        <th>Titulo</th>
+        <th>Estado</th>
+        <th>Fecha de Creación</th>
+        <th>Fecha de Realizado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of tasks | paginate: { itemsPerPage: 6, currentPage: currentPage }">
+        <td>{{task.title | uppercase}}</td>
+        <td>{{task.state | uppercase}}</td>
+        <td>{{task.date | date}}</td>
+        <td>{{ task.endDate | date}}</td>
+        <td>
+          <div class="btn-group">
+            <a mat-mini-fab><i class="fas fa-glasses"></i></a>
+            <a mat-mini-fab color="primary"><i class="fas fa-edit"></i></a>
+            <a mat-mini-fab color="warn"><i class="far fa-trash-alt"></i></a>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<pagination-controls (pageChange)="currentPage = $event">
+</pagination-controls>
