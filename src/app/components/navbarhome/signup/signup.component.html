@@ -1,33 +1,38 @@
-<mat-card class="material-card">
+<mat-spinner *ngIf="showSpinner"></mat-spinner>
+
+<mat-card class="material-card" *ngIf="!showSpinner">
   <mat-card-header>
     <mat-card-title>
-      <h2>Sign Up for AppTasks</h2>
+      <h2>Crea tu cuenta de AppTasks</h2>
     </mat-card-title>
-    <mat-card-subtitle>users unregistered</mat-card-subtitle>
+    <mat-card-subtitle>usuarios no registrados</mat-card-subtitle>
   </mat-card-header>
-  <form action="" method="post">
+  <form (ngSubmit)="onSubmit()" #signupForm="ngForm">
     <mat-card-content>
-      <div class="alert-danger">
-        <p>Passwords do not match</p>
+      <div class="alert-danger" *ngIf="user.password != user.confirmPassword">
+        <p>Contraseñas no coinciden</p>
       </div>
       <div class="material-container">
         <mat-form-field>
-          <input type="text" matInput placeholder="Full name" minlength="3" maxlength="30" required>
+          <input [(ngModel)]="user.displayName" type="text" name="displayName" matInput placeholder="Nombre y Apellidos" minlength="3" maxlength="30" required>
         </mat-form-field>
         <mat-form-field>
-          <input type="email" matInput placeholder="Email" required>
+          <input [(ngModel)]="user.email" type="email" name="email" matInput placeholder="Correo electrónico" required>
         </mat-form-field>
         <mat-form-field>
-          <input type="password" matInput placeholder="Password" required minlength="8">
-        </mat-form-field>
+          <input [(ngModel)]="user.password" type="password" name="password" matInput placeholder="Contraseña" required minlength="8">
+        </mat-form-field>        
         <mat-form-field>
-          <input type="password" matInput placeholder="Confirm password" required minlength="8">
+          <input [(ngModel)]="user.confirmPassword" type="password" name="confirmPassword" matInput placeholder="Confirmar contraseña" required minlength="8">
         </mat-form-field>
+        <small>
+          Usa 8 o más caracteres con una combinación de letras, números y símbolos
+        </small>
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button type="submit" mat-raised-button color="primary">Sign up</button>
-      <a mat-button [routerLink]="['/home/signin']" color="primary">I prefer to log in</a>
+      <button [disabled]="!signupForm.valid" type="submit" mat-raised-button color="primary">Siguiente</button>
+      <a mat-button [routerLink]="['/home/signin']" color="primary">Acceder a la cuenta</a>
     </mat-card-actions>
   </form>
 </mat-card>

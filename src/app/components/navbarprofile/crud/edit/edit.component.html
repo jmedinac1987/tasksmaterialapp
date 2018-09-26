@@ -1,0 +1,27 @@
+<div>
+    <h2 mat-dialog-title>Crear tarea</h2>
+    <form (ngSubmit)="onSubmit()" #taskPostForm="ngForm">
+      <mat-card-content>
+        <div class="material-container">
+          <mat-form-field>
+            <input [(ngModel)]="data.title" name="title" type="text" matInput placeholder="Título" minlength="3" maxlength="30" required>
+          </mat-form-field>
+  
+          <mat-radio-group name="state" [(ngModel)]="data.state">
+            <mat-radio-button class="radio-group" *ngFor="let state of states" [value]="state">
+              {{state}}
+            </mat-radio-button>
+          </mat-radio-group>
+  
+          <mat-form-field>
+            <textarea name="description" [(ngModel)]="data.description" matInput placeholder="Escribe aquí la descripción de la tarea"
+              minlength="3" maxlength="300" required></textarea>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+      <mat-dialog-actions>
+        <button [disabled]="!taskPostForm.valid" type="submit" mat-raised-button color="primary">Save</button>
+        <a mat-raised-button (click)="onCancelConfirm()">Cancel</a>
+      </mat-dialog-actions>
+    </form>
+  </div>

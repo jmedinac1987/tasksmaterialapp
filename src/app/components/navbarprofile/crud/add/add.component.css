@@ -1,0 +1,10 @@
+.material-container {
+  display: flex;
+  flex-direction: column;
+}
+.material-container > * {
+  width: 100%;
+}
+.radio-group{
+  margin: 5px;
+}

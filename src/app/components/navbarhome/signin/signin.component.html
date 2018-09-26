@@ -1,29 +1,31 @@
-<mat-card class="material-card">
+<mat-spinner *ngIf="showSpinner"></mat-spinner>
+
+<mat-card class="material-card" *ngIf="!showSpinner">
   <mat-card-header>
     <mat-card-title>
-      <h2>Sign In to AppTasks</h2>
+      <h2>Acceder a AppTasks</h2>
     </mat-card-title>
-    <mat-card-subtitle>users registered</mat-card-subtitle>
+    <mat-card-subtitle>usuarios registrados</mat-card-subtitle>
   </mat-card-header>
   <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
     <mat-card-content>
-      <div class="alert-danger">
-        <p>Passwords do not match</p>
+      <div class="alert-danger" [hidden]="!error">
+        {{ error }}
       </div>
       <div class="material-container">
         <mat-form-field>
-          <input type="email" [(ngModel)]="form.email" matInput placeholder="Email" name="email" required>
+          <input type="email" [(ngModel)]="user.email" matInput placeholder="Correo electrónico" name="email" required>
         </mat-form-field>
         <mat-form-field>
-          <input type="password" [(ngModel)]="form.password" matInput placeholder="Password" name="password" required>
+          <input type="password" [(ngModel)]="user.password" matInput placeholder="Ingresa tu contraseña" name="password" required>
         </mat-form-field>
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button type="submit" [disabled]="!loginForm.valid" mat-raised-button color="primary">Sign in</button>
-      <a mat-button [routerLink]="['/home/signup']" color="primary">Create an account</a>
+      <button type="submit" [disabled]="!loginForm.valid" mat-raised-button color="primary">Siguiente</button>
+      <a mat-button [routerLink]="['/home/signup']" color="primary">Crear una cuenta</a>
       <small>
-        <a mat-button color="accent" [routerLink]="['/home/request-password-reset']">Forgot password?</a>
+        <a mat-button color="accent" [routerLink]="['/home/request-password-reset']">¿Olvidaste la contraseña?</a>
       </small>
     </mat-card-actions>
   </form>

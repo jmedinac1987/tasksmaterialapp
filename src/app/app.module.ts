@@ -8,12 +8,13 @@ import { AfterLoginService } from './services/after-login.service';
 import { BeforeLoginService } from './services/before-login.service';
 import { TaskService } from './services/task.service';
 import { HttpClientModule } from '@angular/common/http';
-import { NgxPaginationModule } from 'ngx-pagination';//paginación
+import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatFormFieldModule, MatCardModule, MatInputModule, MatMenuModule, MatToolbarModule, MatSidenavModule, MatIconModule, MatListModule, MatTableModule, MatDialogModule, MatRadioModule } from '@angular/material';
+import { MatButtonModule, MatFormFieldModule, MatCardModule, MatInputModule, MatMenuModule, MatToolbarModule, MatSidenavModule, MatIconModule, MatListModule, MatTableModule, MatDialogModule, MatRadioModule, MatProgressSpinnerModule } from '@angular/material';
 import { SigninComponent } from './components/navbarhome/signin/signin.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { SignupComponent } from './components/navbarhome/signup/signup.component';
@@ -25,7 +26,8 @@ import { ResponseResetComponent } from './components/navbarhome/password/respons
 import { AboutapplicationComponent } from './components/navbarprofile/aboutapplication/aboutapplication.component';
 import { ConsolidatedtasksComponent } from './components/navbarprofile/consolidatedtasks/consolidatedtasks.component';
 import { PendingtasksComponent } from './components/navbarprofile/pendingtasks/pendingtasks.component';
-import { AddComponent } from './components/navbarprofile/pendingtasks/add/add.component';
+import { AddComponent } from './components/navbarprofile/crud/add/add.component';
+import { EditComponent } from './components/navbarprofile/crud/edit/edit.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import { AddComponent } from './components/navbarprofile/pendingtasks/add/add.co
     AboutapplicationComponent,
     ConsolidatedtasksComponent,
     PendingtasksComponent,
-    AddComponent
+    AddComponent,
+    EditComponent
   ],
   imports: [
     BrowserModule,
@@ -59,14 +62,23 @@ import { AddComponent } from './components/navbarprofile/pendingtasks/add/add.co
     MatTableModule,
     MatDialogModule,
     MatRadioModule,
+    MatProgressSpinnerModule,
     HttpClientModule,
     FormsModule,
     NgxPaginationModule,
+    SnotifyModule
   ],
   entryComponents:[
     AddComponent
   ],
-  providers: [UserService, TokenService, TaskService, AuthService, AfterLoginService, BeforeLoginService, 
+  providers: [UserService, 
+    TokenService, 
+    TaskService, 
+    AuthService, 
+    AfterLoginService, 
+    BeforeLoginService, 
+    { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
+    SnotifyService
     ],
   bootstrap: [AppComponent]
 })

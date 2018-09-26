@@ -1,17 +1,6 @@
-.material-card {
-  max-width: 300px;  
-}
-.material-container {
-  display: flex;
-  flex-direction: column;  
-}
-.material-container > * {
-  width: 100%;
-}
-
 .card-deck {
   display: -ms-flexbox;
-  display: flex;  
+  display: flex;
   -ms-flex-direction: column;
   flex-direction: column;
 }
@@ -20,7 +9,26 @@
   list-style: none;
 }
 
-.margin-list-card-app {  
+mat-spinner {
+  margin: auto;
+}
+
+.description {      
+  word-wrap: break-word;  
+}
+.material-card {
+  min-width: 250px;
+  max-width: 300px;
+}
+.material-container {
+  display: flex;
+  flex-direction: column;
+}
+.material-container > * {
+  width: 100%;
+}
+
+.margin-list-card-app {
   margin-top: 1rem !important;
   margin-bottom: 1rem !important;
   margin-left: 5px;
@@ -28,7 +36,7 @@
 }
 
 .mat-card-actions .mat-mini-fab {
-  margin-left: 3%;
+  margin-left: 2%;
 }
 
 @media (min-width: 576px) {

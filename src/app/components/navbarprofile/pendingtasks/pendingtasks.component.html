@@ -1,26 +1,38 @@
-<a mat-raised-button color="primary" (click)="openDialogAdd()"><i class="fas fa-pencil-alt"></i> Create task</a>
-<pagination-controls (pageChange)="currentPage = $event">
-</pagination-controls>
-<div class="card-deck">
-  <mat-card class="material-card  margin-list-card-app" *ngFor="let task of tasks | paginate: { itemsPerPage: 6, currentPage: currentPage }">
-    <mat-card-header>
-      <mat-card-title>
-        <h2>{{ task.title | uppercase}}</h2>
-      </mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="material-container">
-        <li class="listStyle"><i class="fas fa-user"></i> {{ task.userTask}}</li>
-        <li class="listStyle"><i class="far fa-calendar-alt"></i> Creada el: {{ task.date | date}}</li>
-        <li class="listStyle">Estado: {{ task.state}}</li>
-        <br />
-        <p>{{ task.description }}</p>
-      </div>
-      <mat-card-actions>
-        <button type="submit" mat-mini-fab color="warn"><i class="far fa-trash-alt"></i></button>
-        <button type="submit" mat-mini-fab color="primary"><i class="fas fa-edit"></i></button>
-      </mat-card-actions>
-    </mat-card-content>
-  </mat-card>
+<div>
+  <a mat-raised-button color="primary" (click)="openDialogAdd()"><i class="fas fa-pencil-alt"></i> Crear tarea</a>
+  <p class="lead text-muted">Tienes {{ number_tasks }} tarea(s) pendiente(s) </p>
 </div>
-<pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+
+<div *ngIf="!length_tasks && !showSpinner" class="pt-3 text-center">
+  <h2>No tienes tareas pendientes :)</h2>
+</div>
+
+<mat-spinner *ngIf="showSpinner"></mat-spinner>
+
+<div *ngIf="length_tasks && !showSpinner">
+  <pagination-controls (pageChange)="currentPage = $event">
+  </pagination-controls>
+  <div class="card-deck">
+    <mat-card class="material-card  margin-list-card-app" *ngFor="let task of tasks | paginate: { itemsPerPage: 6, currentPage: currentPage }">
+      <mat-card-header>
+        <mat-card-title>
+          <h2>{{ task.title | uppercase}}</h2>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="material-container">
+          <li class="listStyle"><i class="fas fa-user"></i> {{ task.userTask}}</li>
+          <li class="listStyle"><i class="far fa-calendar-alt"></i> Creada el: {{ task.date | date}}</li>
+          <li class="listStyle">Estado: {{ task.state}}</li>
+          <br />
+          <p class="description">{{ task.description }}</p>
+        </div>
+        <mat-card-actions>
+          <button type="submit" mat-mini-fab color="warn"><i class="far fa-trash-alt"></i></button>
+          <a mat-mini-fab color="primary" (click)="openDialogEdit(task)"><i class="fas fa-edit"></i></a>
+        </mat-card-actions>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+</div>

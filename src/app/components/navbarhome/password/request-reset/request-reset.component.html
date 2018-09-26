@@ -1,23 +1,25 @@
-<mat-card class="material-card">
+<mat-spinner *ngIf="showSpinner"></mat-spinner>
+
+<mat-card class="material-card" *ngIf="!showSpinner">
   <mat-card-header>
     <mat-card-title>
-      <h2>Reset your password</h2>
+      <h2>Restablecer su contraseña</h2>
     </mat-card-title>
-    <mat-card-subtitle>Enter your email address and we will send you a link to reset your password.</mat-card-subtitle>
+    <mat-card-subtitle>Ingrese su dirección de correo electrónico y le enviaremos un enlace para restablecer su contraseña.</mat-card-subtitle>
   </mat-card-header>
-  <form action="" method="post">
+  <form (ngSubmit)="onSubmit()" #requestResetForm="ngForm">
     <mat-card-content>
-      <div class="alert-danger">
-        <p>Passwords do not match</p>
+      <div class="alert-danger" [hidden]="!error">
+        {{ error }}
       </div>
       <div class="material-container">
         <mat-form-field>
-          <input type="email" matInput placeholder="Email" required>
+          <input [(ngModel)]="user.email" name="email" type="email" matInput placeholder="Correo electrónico" required>
         </mat-form-field>
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button type="submit" mat-raised-button color="primary">Send password reset email</button>
+      <button [disabled]="!requestResetForm.valid" type="submit" mat-raised-button color="primary">Solicitar restablecimiento de contraseña</button>
     </mat-card-actions>
   </form>
 </mat-card>
