@@ -49,7 +49,7 @@ export class ConsolidatedtasksComponent implements OnInit, OnDestroy {
     if (this.searchTask.argument === "Titulo") {
       this.filter = this.tasks.filter(function(task) {
         return (
-          task.title.toLowerCase().indexOf(searchTask.search) > -1
+          task.title.toLowerCase().indexOf(searchTask.search.toLowerCase()) > -1
         );
       });
       this.searchTask = new SearchTask();      
