@@ -29,10 +29,10 @@ export class RequestResetComponent implements OnInit, OnDestroy {
     if (this.subscription) this.subscription.unsubscribe();
   }
 
-  onSubmit() {
+  onSubmit() {    
     this.showSpinner = true;    
     this.subscription = this.userService
-      .sendPasswordReset(this.user.email)
+      .sendPasswordReset(this.user)
       .subscribe(
         data => this.handleResponse(data),
         error => this.handleError(error)

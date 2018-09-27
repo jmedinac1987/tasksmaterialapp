@@ -65,7 +65,7 @@ export class ResponseResetComponent implements OnInit, OnDestroy {
           {
             text: "OK",
             action: toster => {
-              _router.navigate(["/login"]);
+              _router.navigate(["/home"]);
               this.notify.remove(toster.id);
             }
           }

@@ -33,7 +33,7 @@ export class DeleteComponent implements OnInit, OnDestroy {
   }
 
   onDelete() {
-    this.subscription = this.taskService.deleteTask(this.data._id).subscribe(
+    this.subscription = this.taskService.deleteTask(this.data).subscribe(
       data => {
         this.serverResponse(data);
         this.dialogRef.close("confirm");
