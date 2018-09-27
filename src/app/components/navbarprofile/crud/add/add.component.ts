@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import { Component, OnInit, Inject, OnDestroy } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { SnotifyService } from "ng-snotify";
 import { TaskService } from "../../../../services/task.service";
@@ -6,15 +6,25 @@ import { AuthService } from "../../../../services/auth.service";
 import { Router } from "@angular/router";
 import { TokenService } from "../../../../services/token.service";
 import { Task } from "../../../../models/task";
+import { Subscription } from "rxjs";
+
+export interface States {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: "app-add",
   templateUrl: "./add.component.html",
   styleUrls: ["./add.component.css"]
 })
-export class AddComponent implements OnInit {
-  public task: Task = new Task();  
-  public states: string[] = ['Pendiente', 'Realizado'];
+export class AddComponent implements OnInit, OnDestroy {
+  public subscription: Subscription;
+  public task: Task = new Task();
+  public states: States[] = [
+    { value: "pendiente", viewValue: "Pendiente" },
+    { value: "realizado", viewValue: "Realizado" }
+  ];
 
   constructor(
     private taskService: TaskService,
@@ -28,9 +38,13 @@ export class AddComponent implements OnInit {
 
   ngOnInit() {}
 
-  onSubmit() {    
+  ngOnDestroy() {
+    if (this.subscription) this.subscription.unsubscribe();
+  }
+
+  onSubmit() {
     if (this.task.state === "realizado") this.task.endDate = Date.now();
-    this.taskService.postTask(this.task).subscribe(
+    this.subscription = this.taskService.postTask(this.task).subscribe(
       data => {
         this.serverResponse(data);
         this.dialogRef.close("confirm");

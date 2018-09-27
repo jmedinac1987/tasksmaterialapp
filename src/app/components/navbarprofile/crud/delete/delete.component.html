@@ -1,0 +1,18 @@
+<h3>Desea eliminar la siguiente tarea?</h3>
+<mat-card-content>
+  <div class="material-container">
+    <li class="listStyle">{{ data.title | uppercase}}</li>
+    <li class="listStyle"><i class="fas fa-user"></i> {{ data.userTask}}</li>
+    <li class="listStyle"><i class="far fa-calendar-alt"></i> Creada el: {{ data.date | date}}</li>
+    <li class="listStyle">Estado: {{ data.state}}</li>
+  </div>
+  <br />
+  <mat-card-actions>
+    <div class="margin-button-card-actions">
+      <a mat-raised-button color="warn" (click)="onDelete()">Eliminar</a>
+    </div>
+    <div class="margin-button-card-actions">
+      <a mat-raised-button (click)="onCancelConfirm()">Cancelar</a>
+    </div>
+  </mat-card-actions>
+</mat-card-content>

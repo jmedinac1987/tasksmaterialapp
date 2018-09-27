@@ -1,17 +1,19 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { UserService } from "../../../services/user.service";
 import { TokenService } from "../../../services/token.service";
 import { Router } from "@angular/router";
 import { AuthService } from "../../../services/auth.service";
 import { SnotifyService } from "ng-snotify";
 import { User } from "../../../models/user";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-signin",
   templateUrl: "./signin.component.html",
   styleUrls: ["./signin.component.css"]
 })
-export class SigninComponent implements OnInit {
+export class SigninComponent implements OnInit, OnDestroy {
+  public subscription: Subscription;
   public user: User = new User();
   public error = null;
   public showSpinner: boolean;
@@ -24,11 +26,18 @@ export class SigninComponent implements OnInit {
     private notify: SnotifyService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    let scroll = document.querySelector('mat-sidenav-content');
+    scroll.scroll(0,0);
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) this.subscription.unsubscribe();
+  }
 
   onSubmit() {
     this.showSpinner = true;
-    this.userService
+    this.subscription = this.userService
       .loginService(this.user)
       .subscribe(
         data => this.handleResponse(data),

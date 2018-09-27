@@ -81,9 +81,11 @@ export class NavbarprofileComponent implements OnInit, OnDestroy {
 
   logout(event: MouseEvent) {
     event.preventDefault();
-    this.tokenService.removeToken();
-    this.authService.changeAuthStatus(false);
-    this.router.navigate(["/home"]);
+    if (confirm("Desea cerrar su sesión?")) {
+      this.tokenService.removeToken();
+      this.authService.changeAuthStatus(false);
+      this.router.navigate(["/home"]);
+    }
   }
 
   serverResponse(response) {

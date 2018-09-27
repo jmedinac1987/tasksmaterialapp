@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>{{ data.title | uppercase}}</h2>
+<mat-card-content>
+  <div class="material-container">
+    <p class="description">{{ data.description }} </p>
+  </div>
+  <br />
+  <mat-card-actions>
+    <div class="margin-button-card-actions">
+      <a mat-raised-button (click)="onCancelConfirm()">Cerrar</a>
+    </div>
+  </mat-card-actions>
+</mat-card-content>

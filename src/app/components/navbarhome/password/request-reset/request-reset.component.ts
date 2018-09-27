@@ -1,14 +1,16 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { UserService } from "../../../../services/user.service";
 import { SnotifyService } from "ng-snotify";
 import { User } from "../../../../models/user";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-request-reset",
   templateUrl: "./request-reset.component.html",
   styleUrls: ["./request-reset.component.css"]
 })
-export class RequestResetComponent implements OnInit {
+export class RequestResetComponent implements OnInit, OnDestroy {
+  public subscription: Subscription;
   public showSpinner: boolean;
   public user: User = new User();
   public error = null;
@@ -18,11 +20,18 @@ export class RequestResetComponent implements OnInit {
     private notify: SnotifyService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    let scroll = document.querySelector('mat-sidenav-content');
+    scroll.scroll(0,0);
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) this.subscription.unsubscribe();
+  }
 
   onSubmit() {
     this.showSpinner = true;    
-    this.userService
+    this.subscription = this.userService
       .sendPasswordReset(this.user.email)
       .subscribe(
         data => this.handleResponse(data),

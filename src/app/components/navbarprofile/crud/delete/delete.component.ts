@@ -8,23 +8,13 @@ import { TokenService } from "../../../../services/token.service";
 import { Task } from "../../../../models/task";
 import { Subscription } from "rxjs";
 
-export interface States {
-  value: string;
-  viewValue: string;
-}
-
 @Component({
-  selector: "app-edit",
-  templateUrl: "./edit.component.html",
-  styleUrls: ["./edit.component.css"]
+  selector: "app-delete",
+  templateUrl: "./delete.component.html",
+  styleUrls: ["./delete.component.css"]
 })
-export class EditComponent implements OnInit, OnDestroy {
+export class DeleteComponent implements OnInit, OnDestroy {
   public subscription: Subscription;
-
-  public states: States[] = [
-    { value: "pendiente", viewValue: "Pendiente" },
-    { value: "realizado", viewValue: "Realizado" }
-  ];
 
   constructor(
     private taskService: TaskService,
@@ -32,23 +22,18 @@ export class EditComponent implements OnInit, OnDestroy {
     private router: Router,
     private tokenService: TokenService,
     private notify: SnotifyService,
-    private dialogRef: MatDialogRef<EditComponent>,
+    private dialogRef: MatDialogRef<DeleteComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Task
   ) {}
 
   ngOnInit() {}
-
-  ngOnDestroy() {
+  
+  ngOnDestroy(){
     if (this.subscription) this.subscription.unsubscribe();
   }
 
-  onSubmit() {
-    if (this.data.endDate && this.data.state === "pendiente")
-      this.data.endDate = null;
-
-    if (this.data.state === "realizado") this.data.endDate = Date.now();
-
-    this.subscription = this.taskService.putTask(this.data).subscribe(
+  onDelete() {
+    this.subscription = this.taskService.deleteTask(this.data._id).subscribe(
       data => {
         this.serverResponse(data);
         this.dialogRef.close("confirm");

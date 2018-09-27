@@ -1,0 +1,26 @@
+.description {
+  text-align: justify;
+  word-wrap: break-word;
+}
+
+.listStyle {
+  list-style: none;
+}
+
+.material-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.material-container > * {
+  width: 100%;
+}
+
+.mat-card-actions{
+  margin-left: .1%;  
+}
+
+.margin-button-card-actions{
+  display: inline-block;  
+  margin-right: 15px;
+}

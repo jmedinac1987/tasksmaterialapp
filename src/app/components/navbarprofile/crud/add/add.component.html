@@ -7,9 +7,9 @@
           <input [(ngModel)]="task.title" name="title" type="text" matInput placeholder="Título" minlength="3" maxlength="30" required>
         </mat-form-field>
 
-        <mat-radio-group name="state" [(ngModel)]="task.state">
-          <mat-radio-button class="radio-group" *ngFor="let state of states" [value]="state">
-            {{state}}
+        <mat-radio-group name="state" [(ngModel)]="task.state" required>
+          <mat-radio-button class="radio-group" *ngFor="let state of states" [value]="state.value">
+            {{state.viewValue}}
           </mat-radio-button>
         </mat-radio-group>
 
@@ -20,8 +20,8 @@
       </div>
     </mat-card-content>
     <mat-dialog-actions>
-      <button [disabled]="!taskPostForm.valid" type="submit" mat-raised-button color="primary">Save</button>
-      <a mat-raised-button (click)="onCancelConfirm()">Cancel</a>
+      <button [disabled]="!taskPostForm.valid" type="submit" mat-raised-button color="primary">Crear</button>
+      <a mat-raised-button (click)="onCancelConfirm()">Cancelar</a>
     </mat-dialog-actions>
   </form>
 </div>

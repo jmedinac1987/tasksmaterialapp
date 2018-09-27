@@ -1,32 +1,113 @@
-<pagination-controls (pageChange)="currentPage = $event">
-</pagination-controls>
-<div class="table-responsive">
-  <table class="mat-elevation-z8">
-    <thead>
-      <tr>
-        <th>Titulo</th>
-        <th>Estado</th>
-        <th>Fecha de Creación</th>
-        <th>Fecha de Realizado</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let task of tasks | paginate: { itemsPerPage: 6, currentPage: currentPage }">
-        <td>{{task.title | uppercase}}</td>
-        <td>{{task.state | uppercase}}</td>
-        <td>{{task.date | date}}</td>
-        <td>{{ task.endDate | date}}</td>
-        <td>
-          <div class="btn-group">
-            <a mat-mini-fab><i class="fas fa-glasses"></i></a>
-            <a mat-mini-fab color="primary"><i class="fas fa-edit"></i></a>
-            <a mat-mini-fab color="warn"><i class="far fa-trash-alt"></i></a>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div *ngIf="!show && !showSpinner">
+  <div class="display-form-search">
+    <p>Tienes {{ number_tasks }} tarea(s) registrada(s) </p>
+  </div>
+  <div class="display-form-search" *ngIf="length_tasks">
+    <form (ngSubmit)="filterTask()" #searchForm="ngForm">
+      <div class="display-form-search">
+        <mat-form-field>
+          <input [(ngModel)]="searchTask.search" name="search" type="text" matInput placeholder="Buscar.." required>
+        </mat-form-field>
+      </div>
+      <div class="display-form-search">
+        <mat-radio-group name="state" [(ngModel)]="searchTask.argument" required>
+          <mat-radio-button class="radio-group" *ngFor="let argument of arguments" [value]="argument">
+            {{argument}}
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="display-form-search">
+        <mat-dialog-actions>
+          <button [disabled]="!searchForm.valid" type="submit" mat-raised-button color="primary">Buscar</button>
+        </mat-dialog-actions>
+      </div>
+    </form>
+  </div>
 </div>
-<pagination-controls (pageChange)="currentPage = $event">
-</pagination-controls>
+
+<div *ngIf="!length_tasks && !showSpinner" class="pt-3 text-center">
+  <h2>No tienes tareas pendientes :)</h2>
+</div>
+
+<mat-spinner *ngIf="showSpinner"></mat-spinner>
+
+<div *ngIf="length_tasks && !showSpinner && !show">
+  <pagination-controls (pageChange)="currentPage = $event">
+  </pagination-controls>
+  <div class="table-responsive">
+    <table class="mat-elevation-z8">
+      <thead>
+        <tr>
+          <th>Titulo</th>
+          <th>Estado</th>
+          <th>Fecha de Creación</th>
+          <th>Fecha de Realizado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let task of tasks | paginate: { itemsPerPage: 6, currentPage: currentPage }">
+          <td>{{task.title | uppercase}}</td>
+          <td>{{task.state | uppercase}}</td>
+          <td>{{task.date | date}}</td>
+          <td>
+            <div *ngIf="task.state !=='pendiente'">
+              {{ task.endDate | date}}
+            </div>
+          </td>
+          <td>
+            <div class="btn-group">
+              <a mat-mini-fab (click)="openDialogShow(task)"><i class="fas fa-glasses"></i></a>
+              <a mat-mini-fab color="primary" (click)="openDialogEdit(task)"><i class="fas fa-edit"></i></a>
+              <a mat-mini-fab color="warn" (click)="openDialogDelete(task)"><i class="far fa-trash-alt"></i></a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <pagination-controls (pageChange)="currentPage = $event">
+  </pagination-controls>
+</div>
+
+<!--Tabla registros de la busqueda-->
+<div *ngIf="show && !showSpinner">
+  <p>{{ number_search }} Registro(s) encontrado(s) </p>
+  <a mat-raised-button color="primary" (click)="showAllRegisters()">Mostrar todos los registros</a>
+  <pagination-controls (pageChange)="currentPage = $event">
+  </pagination-controls>
+  <div class="table-responsive">
+    <table class="mat-elevation-z8">
+      <thead>
+        <tr>
+          <th>Titulo</th>
+          <th>Estado</th>
+          <th>Fecha de Creación</th>
+          <th>Fecha de Realizado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let task of filter | paginate: { itemsPerPage: 6, currentPage: currentPage }">
+          <td>{{task.title | uppercase}}</td>
+          <td>{{task.state | uppercase}}</td>
+          <td>{{task.date | date}}</td>
+          <td>
+            <div *ngIf="task.state !=='pendiente'">
+              {{ task.endDate | date}}
+            </div>
+          </td>
+          <td>
+            <div class="btn-group">
+              <a mat-mini-fab (click)="openDialogShow(task)"><i class="fas fa-glasses"></i></a>
+              <a mat-mini-fab color="primary" (click)="openDialogEdit(task)"><i class="fas fa-edit"></i></a>
+              <a mat-mini-fab color="warn" (click)="openDialogDelete(task)"><i class="far fa-trash-alt"></i></a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <pagination-controls (pageChange)="currentPage = $event">
+  </pagination-controls>
+</div>

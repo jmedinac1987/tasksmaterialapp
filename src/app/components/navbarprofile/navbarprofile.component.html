@@ -2,9 +2,9 @@
   <mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async)">
     <mat-toolbar color="primary">Menu</mat-toolbar>
-    <mat-nav-list>      
+    <mat-nav-list>
       <i id="icon" class="fas fa-address-card"></i>
-      <a mat-list-item ><strong>{{ user.displayName | uppercase }}</strong></a>
+      <a mat-list-item><strong>{{ user.displayName | uppercase }}</strong></a>
       <a mat-list-item [routerLink]="['/profile/pending-tasks']" (click)="drawer.toggle();">Tareas pendientes</a>
       <a mat-list-item [routerLink]="['/profile/consolidated-tasks']" (click)="drawer.toggle();">Consolidado de tareas</a>
       <a mat-list-item [routerLink]="['/profile/about-application']" (click)="drawer.toggle();">Acerca de la aplicación</a>
@@ -19,8 +19,8 @@
       </button>
       <span>AppTasks</span>
     </mat-toolbar>
-    <!-- Add Content Here -->    
-    <div class="container-app pt-5-app pb-5-app">      
+    <!-- Add Content Here -->
+    <div class="container-app pt-5-app pb-5-app">
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>

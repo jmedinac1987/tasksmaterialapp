@@ -1,18 +1,19 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { UserService } from "../../../services/user.service";
 import { TokenService } from "../../../services/token.service";
 import { AuthService } from "../../../services/auth.service";
 import { Router } from "@angular/router";
 import { SnotifyService } from "ng-snotify";
 import { User } from "../../../models/user";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-signup",
   templateUrl: "./signup.component.html",
   styleUrls: ["./signup.component.css"]
 })
-export class SignupComponent implements OnInit {
-  
+export class SignupComponent implements OnInit, OnDestroy {
+  public subscription: Subscription;
   public user: User = new User();
   public showSpinner: boolean;
   public error = null;
@@ -31,12 +32,19 @@ export class SignupComponent implements OnInit {
     private notify: SnotifyService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    let scroll = document.querySelector("mat-sidenav-content");
+    scroll.scroll(0, 0);
+  }
+  
+  ngOnDestroy() {
+    if (this.subscription) this.subscription.unsubscribe();
+  }
 
   onSubmit() {
     this.showSpinner = true;
     if (this.validateEmail(this.user.email)) {
-      this.userService
+      this.subscription = this.userService
         .signupService(this.user)
         .subscribe(
           data => this.handleResponse(data),

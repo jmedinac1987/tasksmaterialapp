@@ -1,12 +1,10 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { TaskService } from "../../../services/task.service";
 import { Task } from "../../../models/task";
-import { AuthService } from "../../../services/auth.service";
-import { Router } from "@angular/router";
-import { TokenService } from "../../../services/token.service";
 import { MatDialog } from "@angular/material";
 import { AddComponent } from "../crud/add/add.component";
-import { EditComponent } from "../crud/edit/edit.component"
+import { EditComponent } from "../crud/edit/edit.component";
+import { DeleteComponent } from "../crud/delete/delete.component";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -24,10 +22,7 @@ export class PendingtasksComponent implements OnInit, OnDestroy {
   public currentPage: number = 1;
 
   constructor(
-    private taskService: TaskService,
-    private authService: AuthService,
-    private router: Router,
-    private tokenService: TokenService,
+    private taskService: TaskService,    
     private dialog: MatDialog
   ) {}
 
@@ -75,4 +70,16 @@ export class PendingtasksComponent implements OnInit, OnDestroy {
     });
   }
 
+  openDialogDelete(task: Task) {
+    this.showSpinner = true;
+    let dialogRef = this.dialog.open(DeleteComponent, {
+      width: "280px",
+      data: task
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === "confirm") this.ngOnInit();
+      this.showSpinner = false;
+    });
+  }
 }

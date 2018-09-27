@@ -28,6 +28,8 @@ import { ConsolidatedtasksComponent } from './components/navbarprofile/consolida
 import { PendingtasksComponent } from './components/navbarprofile/pendingtasks/pendingtasks.component';
 import { AddComponent } from './components/navbarprofile/crud/add/add.component';
 import { EditComponent } from './components/navbarprofile/crud/edit/edit.component';
+import { DeleteComponent } from './components/navbarprofile/crud/delete/delete.component';
+import { ShowComponent } from './components/navbarprofile/crud/show/show.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { EditComponent } from './components/navbarprofile/crud/edit/edit.compone
     ConsolidatedtasksComponent,
     PendingtasksComponent,
     AddComponent,
-    EditComponent
+    EditComponent,
+    DeleteComponent,
+    ShowComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +73,10 @@ import { EditComponent } from './components/navbarprofile/crud/edit/edit.compone
     SnotifyModule
   ],
   entryComponents:[
-    AddComponent
+    AddComponent,
+    EditComponent,
+    DeleteComponent,
+    ShowComponent
   ],
   providers: [UserService, 
     TokenService, 

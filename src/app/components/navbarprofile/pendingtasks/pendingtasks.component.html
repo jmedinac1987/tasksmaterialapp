@@ -12,27 +12,29 @@
 <div *ngIf="length_tasks && !showSpinner">
   <pagination-controls (pageChange)="currentPage = $event">
   </pagination-controls>
-  <div class="card-deck">
-    <mat-card class="material-card  margin-list-card-app" *ngFor="let task of tasks | paginate: { itemsPerPage: 6, currentPage: currentPage }">
-      <mat-card-header>
-        <mat-card-title>
-          <h2>{{ task.title | uppercase}}</h2>
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <div class="material-container">
-          <li class="listStyle"><i class="fas fa-user"></i> {{ task.userTask}}</li>
-          <li class="listStyle"><i class="far fa-calendar-alt"></i> Creada el: {{ task.date | date}}</li>
-          <li class="listStyle">Estado: {{ task.state}}</li>
-          <br />
-          <p class="description">{{ task.description }}</p>
-        </div>
-        <mat-card-actions>
-          <button type="submit" mat-mini-fab color="warn"><i class="far fa-trash-alt"></i></button>
-          <a mat-mini-fab color="primary" (click)="openDialogEdit(task)"><i class="fas fa-edit"></i></a>
-        </mat-card-actions>
-      </mat-card-content>
-    </mat-card>
+  <div class="card-deck-responsive">
+    <div class="card-deck">
+      <mat-card class="material-card  margin-list-card-app" *ngFor="let task of tasks | paginate: { itemsPerPage: 6, currentPage: currentPage }">
+        <mat-card-header>
+          <mat-card-title>
+            <h2>{{ task.title | uppercase}}</h2>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="material-container">
+            <li class="listStyle"><i class="fas fa-user"></i> {{ task.userTask}}</li>
+            <li class="listStyle"><i class="far fa-calendar-alt"></i> Creada el: {{ task.date | date}}</li>
+            <li class="listStyle">Estado: {{ task.state}}</li>
+            <br />
+            <p class="description">{{ task.description }}</p>
+          </div>
+          <mat-card-actions>
+            <a mat-mini-fab color="warn" (click)="openDialogDelete(task)"><i class="far fa-trash-alt"></i></a>
+            <a mat-mini-fab color="primary" (click)="openDialogEdit(task)"><i class="fas fa-edit"></i></a>
+          </mat-card-actions>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
   </div>
-  <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
 </div>

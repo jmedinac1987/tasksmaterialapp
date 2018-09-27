@@ -1,0 +1,21 @@
+.text-center {
+  text-align: center;
+}
+
+.margin-button-card-actions {
+  display: inline-block;
+}
+
+@media (min-width: 720px) {
+  .margin-button-card-actions {
+    margin-left: 43%;
+    margin-right: 43%;
+  }
+}
+
+@media (max-width: 719px) {
+  .margin-button-card-actions {
+    margin-left: 30%;
+    margin-right: 30%;
+  }
+}
