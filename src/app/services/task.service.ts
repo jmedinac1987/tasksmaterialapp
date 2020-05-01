@@ -15,7 +15,7 @@ export class TaskService {
 
   constructor(private _http:HttpClient, private tokenService: TokenService)
   {
-    this.server = 'https://tasksapplication.herokuapp.com/api';        
+    this.server = 'http://localhost:3000/api';        
   }
 
   getHeaders(){

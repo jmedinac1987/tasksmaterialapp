@@ -7,8 +7,8 @@ import { User } from '../models/user';
 export class TokenService {
 
   private iss = {
-    login : 'https://tasksapplication.herokuapp.com/api/signin',
-    signup: 'https://tasksapplication.herokuapp.com/api/signup'
+    login : 'http://localhost:3000/api/signin',
+    signup: 'http://localhost:3000/api/signup'
   } 
 
   public user: User = new User();
